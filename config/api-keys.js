@@ -1,0 +1,1 @@
+export default googleNewsApiKey = process.env["GOOGLE_NEWS_API_KEY"]
