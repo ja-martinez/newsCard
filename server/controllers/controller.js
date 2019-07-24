@@ -4,12 +4,13 @@ module.exports = {
 
   register: (req, res) => {
     knex('users')
-      .insert([{
+      .insert({
+        name: req.body.name,
         email: req.body.email,
         password: req.body.password
-      }])
+      })
       .then(() => {
-        res.status(200);
+        res.status(200).end();
       })
   },
 
@@ -22,7 +23,7 @@ module.exports = {
         let user = result[0];
         if (user.password === req.body.password) {
           req.session.user = user;
-          knex('saved_lisings')
+          knex('saved_listings')
             .where('user_id', user.id)
             .rightJoin('articles', 'saved_listings.article_id', 'articles.id')
             .then(articles => {
@@ -37,7 +38,7 @@ module.exports = {
                 })
             })
         } else {
-          res.status(401)
+          res.status(401).end();
         }
       })
   },
@@ -56,9 +57,10 @@ module.exports = {
           .insert({
             listing_id: listingId,
             content: req.body.content
-          })
-          .then(() => {
-            res.status(200)
+          }, ['id', 'content'])
+          .then(notes => {
+            const note = notes[0]
+            res.json(note)
           })
       })
   },
@@ -76,24 +78,34 @@ module.exports = {
               user_id: userId
             })
             .then(() => {
-              res.status(200)
+              knex('articles')
+                .where('id', articleId)
+                .then(articles => {
+                  article = articles[0];
+                  res.json(article)
+                })
             })
         } else {
           knex('articles')
             .insert({
               title: req.body.title, 
               description: req.body.description, 
-              img_url: req.body.imageUrl, 
-              link_url: req.body.linkUrl
+              img_url: req.body.image_url, 
+              link_url: req.body.link_url
             }, ['id'])
             .then(articleId => {
               knex('saved_listings')
                 .insert({
-                  article_id: articleId,
+                  article_id: parseInt(articleId),
                   user_id: userId
                 })
                 .then(() => {
-                  res.status(200)
+                  knex('articles')
+                    .where('id', articleId)
+                    .then(articles => {
+                      article = articles[0];
+                      res.json(article)
+                    })
                 })
             })
         }
