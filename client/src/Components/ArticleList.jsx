@@ -9,7 +9,7 @@ const ArticleList = ({ articles, searchArticles }) => {
                 <SearchArticles onSearchArticles={searchArticles} />
            </div>
            <div>
-                <div>
+                <div className="articleShelf">
                     {articles.map(article => {
                         return (
                             <Article 

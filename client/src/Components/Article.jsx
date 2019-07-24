@@ -9,8 +9,8 @@ const Article = ({ id, title, content, description, url, urlToImage, saveArticle
     return (
         <div className="articleContainer">
             <div>
-                <h4 style={{ color: 'rgb(3, 94, 68)' }}>{title}</h4>
                 <img src={urlToImage} alt={"picture of " + title} style={{ width: '20em' }}></img>
+                <h4 style={{ color: 'black' }}>{title}</h4>
                 <p>{content}</p>
                 <p>{description}</p>
                 <a href={url}>{url}</a>
