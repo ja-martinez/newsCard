@@ -10,6 +10,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.set('view engine', 'ejs');
 
+require("./config/session.js")(app);
+
 var routes_setter = require('./config/routes.js');
 routes_setter(app);
 
