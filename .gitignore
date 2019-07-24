@@ -1,4 +1,4 @@
 node_modules
 server/knexfile.js
-
-
+.env
+config/api-keys.js
