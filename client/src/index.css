@@ -12,8 +12,13 @@ code {
     monospace;
 }
 
-.footer {
-  color: white;
+.navbar, .footer {
+  color:white;
   background-color: black;
-  padding: 10px;
+  padding: 15px;
+}
+
+.mainBody {
+  display: flex;
+  text-align: center;
 }
