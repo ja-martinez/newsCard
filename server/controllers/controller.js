@@ -2,23 +2,64 @@ const knex = require("../db/knex.js");
 
 module.exports = {
 
-  getArticles: (req, res) => {
-    userId = req.session.user.id;
-    knex('saved_lisings')
-      .where('user_id', userId)
-      .rightJoin('articles', 'saved_listings.article_id', 'articles.id')
-      .then(articles => {
-        res.json(articles)
+  register: (req, res) => {
+    knex('users')
+      .insert([{
+        email: req.body.email,
+        password: req.body.password
+      }])
+      .then(() => {
+        res.status(200);
       })
   },
 
-  getNotes: (req, res) => {
-    userId = req.session.user.id;
+  login: (req, res) => {
+    knex('users')
+      .where({
+        email: req.body.email
+      })
+      .then(result => {
+        let user = result[0];
+        if (user.password === req.body.password) {
+          req.session.user = user;
+          knex('saved_lisings')
+            .where('user_id', user.id)
+            .rightJoin('articles', 'saved_listings.article_id', 'articles.id')
+            .then(articles => {
+              knex('saved_listings')
+                .where('user_id', user.id)
+                .rightJoin('notes', 'saved_listings.id', 'notes.listing_id')
+                .then(notes => {
+                  res.json({
+                    articles,
+                    notes
+                  })
+                })
+            })
+        } else {
+          res.status(401)
+        }
+      })
+  },
+
+  postNote: (req, res) => {
+    articleId = req.params.articleId;
+    userId = req.session.user.id
     knex('saved_listings')
-      .where('user_id', userId)
-      .rightJoin('notes', 'saved_listings.id', 'notes.listing_id')
-      .then(notes => {
-        res.json(notes)
+      .where({
+        article_id: articleId,
+        user_id: userId
+      })
+      .then(listings => {
+        listingId = listings[0].id;
+        knex('notes')
+          .insert({
+            listing_id: listingId,
+            content: req.body.content
+          })
+          .then(() => {
+            res.status(200)
+          })
       })
   },
 
@@ -34,6 +75,9 @@ module.exports = {
               article_id: articleId, 
               user_id: userId
             })
+            .then(() => {
+              res.status(200)
+            })
         } else {
           knex('articles')
             .insert({
@@ -48,9 +92,12 @@ module.exports = {
                   article_id: articleId,
                   user_id: userId
                 })
+                .then(() => {
+                  res.status(200)
+                })
             })
         }
-      }
-  },
+      })
+  }
 
 }
