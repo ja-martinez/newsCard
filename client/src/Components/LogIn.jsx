@@ -16,6 +16,28 @@ class LogIn extends React.Component{
         console.log(this.state);
     }
 
+    login = async () => {
+      const res = await fetch('http://localhost:8000/login', 
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            email: this.state.email,
+            password: this.state.password
+          }),
+          headers: {
+              'Content-Type': 'application/json'
+          }
+        })
+      if (res.ok) {
+        const json = res.json();
+        const { articles, notes } = json;
+        
+      } else {
+
+      }
+      
+    }
+
     postData(type, userData) {
         return new Promise((resolve, reject) => {
 
@@ -45,7 +67,6 @@ class LogIn extends React.Component{
                 }
             })
         }
-
     }
     
     

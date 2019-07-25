@@ -19,11 +19,23 @@ body {
   margin: 0 0 0 1em;
 }
 
-.main-nav .links a {
+.main-nav .links .main-nav-links {
   color: white;
 }
 
-.links a {
+.main-nav .links .link {
+  color: white;
+}
+
+.links .main-nav-links {
+  text-decoration: none;
+}
+
+.links .section-nav-links {
+  text-decoration: none;
+}
+
+.links .link {
   text-decoration: none;
 }
 
@@ -35,14 +47,14 @@ body {
   margin-bottom: 2em;
 }
 
-.section-nav a {
+.section-nav .section-nav-links {
   padding: .4em 0;
   margin: 0 1em;
   color: black;
 
 }
 
-.section-nav a:hover {
+.section-nav .section-nav-links:hover {
   box-shadow: 0 1px 0 #000;
 
 }

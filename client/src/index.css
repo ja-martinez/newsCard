@@ -1,4 +1,4 @@
-body {
+/* body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -134,4 +134,135 @@ label{
   display: flex;
   text-align: center;
 }
+ */
 
+
+ @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: whitesmoke;
+}
+
+.main-nav {
+  height: 4em;
+  background-color: #070709;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10vh 0 10vh;
+}
+
+.nav-links * {
+  margin: 0 0 0 1em;
+}
+
+.main-nav .links a {
+  color: white;
+}
+
+.links a {
+  text-decoration: none;
+}
+
+.section-nav {  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: .01em solid #ccc;
+  margin-bottom: 2em;
+}
+
+.section-nav a {
+  padding: .4em 0;
+  margin: 0 1em;
+  color: black;
+
+}
+
+.section-nav a:hover {
+  box-shadow: 0 1px 0 #000;
+
+}
+
+.container {
+  margin: 0 10vh 0 10vh;
+}
+
+main {
+  display: flex;
+}
+
+.filter-container {
+  background-color: red;
+}
+
+.cards-container {
+  flex: 1;
+  display: flex;
+  justify-content:flex-start;
+  flex-wrap: wrap;
+}
+
+
+.card {
+  width: 25vw;
+  /* border-radius: 0.5em; */
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-bottom: 2em;
+  margin-right: 2em;
+}
+
+.card-image {
+  width: 100%;
+}
+
+.card-image img {
+  width: 100%;
+  /* border-radius: 0.5em 0.5em 0 0; */
+}
+
+.card-content {
+  padding: 1.2em;
+}
+
+.card-header-content {
+  flex: 6;
+}
+
+.save {
+  flex: 1;
+}
+
+.card-header {
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  /* align-items: center; */
+}
+
+.card-body {
+  line-height: 1.2em;
+}
+
+.save-icon {
+  width: 1.2em;
+}
+
+p {
+  margin: 0;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+.card-header-content h2 {
+  color: black;
+}
+
+.card-header-content h2:hover {
+  text-decoration: underline;
+}
