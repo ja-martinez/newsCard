@@ -83,6 +83,7 @@ class Home extends React.Component{
                     />
                     <SearchArticles filterArticles={this.filterArticles} />
                 </div>
+                
             </div>
         )
     }
