@@ -5,17 +5,36 @@ import SavedArticles from "./SavedArticles";
 import LogIn from "./LogIn";
 
 class Header extends React.Component {
-
   state = {
     savedArticles: [],
     notes: [],
     isLoggedIn: false
-  }
-
+  };
 
   render() {
     return (
       <Router>
+        <nav class="main-nav">
+          <div class="logo links">
+            <Link
+              to="/"
+              className="link"
+            >
+              <h3>newsCard</h3>
+            </Link>
+          </div>
+          <div class="links nav-links">
+            <Link to="/" className="main-nav-links">
+              Home
+            </Link>
+            <Link to="/savedArticles" className="main-nav-links">
+              Saved Articles
+            </Link>
+            <Link to="/login" className="main-nav-links">
+              LogIn
+            </Link>
+          </div>
+        </nav>
         <nav className="navbar">
           <a className="navbar-brand" href="/">
             <h3 className="logo">NEWSCARD</h3>
