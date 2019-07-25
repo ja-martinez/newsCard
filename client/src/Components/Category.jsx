@@ -2,10 +2,15 @@ import React from 'react';
 
 
 class Category extends React.Component {
+
+
     render () {
-        const categories = this.props.category.map(cat => {
+        const categories = this.props.categories.map((cat, index) => {
             return <button 
                 className="categoryButton"
+                key={index}
+                id={index}
+                value={cat}
                 onClick={this.props.handleButtonSortByCategory}                
             >{cat}</button>
         })

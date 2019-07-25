@@ -1,74 +1,35 @@
 import React from 'react';
 import Category from './Category';
 import ArticleList from './ArticleList';
+import SearchArticles from './SearchArticles';
 
 class Home extends React.Component{
     state = {
         articles: [],
         search: "",
-        category: ["business", "entertainment", "health", "science", "sports", "technology"],
-        btn: null
+        categories: ["business", "entertainment", "health", "science", "sports", "technology"],
+        category: '',
+        btn: 0
     }
 
     componentDidMount() {
         this.getArticles();
     }
 
-    getArticles = async () => {
-        const response = await fetch(`https://newsapi.org/v2/top-headlines?country=us&apiKey=b35a1440196748048050f2cf2c7c2ea1`)
+    getArticles = async (category) => {
+        let response;
+        if(category) {
+            response = await fetch(`https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=b35a1440196748048050f2cf2c7c2ea1`)
+        } else {
+            response = await fetch('https://newsapi.org/v2/top-headlines?country=us&apiKey=b35a1440196748048050f2cf2c7c2ea1')
+        }
+        
         const json = await response.json();
         console.log(json.articles);
         this.setState({
-            articles: json.articles.map(article => {
-                return {
-                    ...article
-                }
-            })
+            articles: json.articles
         })
-    }
-
-    determineCategory = async () => {
-        if (this.state.btn == 0) {
-            return this.state.articles.sort((a, b) => {
-                let nameA = a.name.toLowerCase();
-                let nameB = b.name.toLowerCase();
-                if (nameA < nameB) {
-                    return -1;
-                }
-                if (nameA > nameB) {
-                    return 1;
-                }
-                return 0;
-            })
-        }
-
-        let response;
-        if(this.state.category === "business") {
-            response = await fetch('https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=b35a1440196748048050f2cf2c7c2ea1')
-        }
-        else if(this.state.category === "entertainment") {
-            response = await fetch('https://newsapi.org/v2/top-headlines?country=us&category=entertainment&apiKey=b35a1440196748048050f2cf2c7c2ea1')
-        }
-        else if(this.state.category === 'health') {
-            response = await fetch('https://newsapi.org/v2/top-headlines?country=us&category=health&apiKey=b35a1440196748048050f2cf2c7c2ea1')
-        }
-        else if(this.state.category === 'science') {
-            response = await fetch('https://newsapi.org/v2/top-headlines?country=us&category=science&apiKey=b35a1440196748048050f2cf2c7c2ea1')
-        }
-        else if (this.state.category === 'sports') {
-            response = await fetch('https://newsapi.org/v2/top-headlines?country=us&category=sports&apiKey=b35a1440196748048050f2cf2c7c2ea1')
-        }
-        else if (this.state.category === 'technology') {
-            response = await fetch('https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=b35a1440196748048050f2cf2c7c2ea1')
-        }
-        const json = await response.json();
-        this.setState({
-            articles: json.articles.map(article => {
-                return {
-                    ...article
-                }
-            })
-        })
+        console.log(this.state)
     }
 
     searchArticles = str => {
@@ -78,18 +39,19 @@ class Home extends React.Component{
         })
     }
 
-    handleButtonSortByCategory = () => {
+    handleButtonSortByCategory = (e) => {
+        const value = e.target.value;
         this.setState({
-            btn: 0
+            category: value
         })
+        this.getArticles(e.target.value);
     }
 
     render() {
-        console.log(this.state.category)
         return (
             <>
                 <Category 
-                    category={this.state.category}
+                    categories={this.state.categories}
                     handleButtonSortByCategory={this.handleButtonSortByCategory}
                 />
                 <ArticleList
@@ -98,6 +60,7 @@ class Home extends React.Component{
                     // articles={searchedItem}
                     articles={this.state.articles}
                 />
+                <SearchArticles />
             </>
         )
     }
