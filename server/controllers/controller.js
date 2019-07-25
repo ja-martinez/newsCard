@@ -43,6 +43,18 @@ module.exports = {
       })
   },
 
+  logout: (req, res) => {
+    if (req.session) {
+      req.session.destroy(err => {
+        if (err) {
+          console.error(err);
+        } else {
+          res.redirect ('/')
+        }
+      })
+    }
+  },
+
   postNote: (req, res) => {
     articleId = req.params.articleId;
     userId = req.session.user.id
