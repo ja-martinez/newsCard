@@ -55,7 +55,7 @@ code {
 .loginForm {
   position: absolute;
   top: 0;
-  width: 40%;	
+  width: 30%;	
   padding: 18px 6% 50px 6%;
   margin: 10% 0 35px 30%;
   background: rgb(247, 247, 247);
@@ -79,6 +79,7 @@ label{
 
 .loginInput {
   display: flex;
+  width: 18rem;
 }
 
 .categoryContainer {
@@ -133,3 +134,4 @@ label{
   display: flex;
   text-align: center;
 }
+

@@ -33,7 +33,7 @@ module.exports = {
                 .then(notes => {
                   res.json({
                     articles,
-                    notes
+                    notes,
                   })
                 })
             })

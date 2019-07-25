@@ -44,6 +44,24 @@ class Home extends React.Component{
         this.getArticles(e.target.value);
     }
 
+    saveArticles = async (newArticle) => {
+        const response = await fetch('http://localhost:8000/saveArticle', {
+            method: "POST",
+            body: JSON.stringify(newArticle),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        console.log(response);
+        const newArticleWithId = await response.json()
+        this.setState(prevState => {
+            return {
+                articles: [...prevState.articles, newArticleWithId]
+            }
+        })
+    };
+
+
     render() {
         let displayArticles = this.state.articles.filter(article => {
             return (
@@ -61,7 +79,7 @@ class Home extends React.Component{
                 />
                 <div className="articleList-and-Search">
                     <ArticleList
-                        articles={displayArticles} 
+                        articles={displayArticles} saveArticles={this.saveArticles}
                     />
                     <SearchArticles filterArticles={this.filterArticles} />
                 </div>

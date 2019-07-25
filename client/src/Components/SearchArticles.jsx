@@ -1,7 +1,7 @@
 import React from 'react';
 
 function SearchArticles({ filterArticles}) {
-    
+
     let onInputChange = e => {
         filterArticles(e.target.value);
     };
@@ -11,7 +11,7 @@ function SearchArticles({ filterArticles}) {
             <input
                 type="text"
                 className="searchField"  
-                placeHolder="Search news by network. e.g. cbs or nbc.."
+                placeholder="Search news by network. e.g. cbs or nbc.."
                 onChange={onInputChange}
             />
         </div>

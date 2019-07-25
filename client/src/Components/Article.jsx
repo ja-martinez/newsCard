@@ -13,7 +13,7 @@ const Article = ({ id, title, content, description, url, urlToImage, saveArticle
                 <h4 style={{ color: 'black' }}>{title}</h4>
                 <p>{content}</p>
                 <p>{description}</p>
-                <a href={url}>{url}</a>
+                <a href={url} target="_blank" rel="noopener noreferrer">{url}</a>
 
             </div>
             <div className="addToCartButton">
