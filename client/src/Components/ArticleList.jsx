@@ -1,26 +1,19 @@
 import React from 'react';
-import SearchArticles from './SearchArticles';
 import Article from './Article';
 
-const ArticleList = ({ articles, searchArticles }) => {
+const ArticleList = ({ articles }) => {
     return (
-       <div>
-           <div>
-                <SearchArticles onSearchArticles={searchArticles} />
-           </div>
-           <div>
-                <div className="articleShelf">
-                    {articles.map(article => {
-                        return (
-                            <Article 
-                                key={article.id}
-                                {...article}                            
-                            />
-                        )
-                    })}
-                </div>
-           </div>
-       </div>
+        <div className="articleShelf">
+            {articles.map(article => {
+                return (
+                    <Article 
+                        key={article.id}
+                        {...article}                            
+                    />
+                )
+            })}
+        </div>
+           
     )
 }
 

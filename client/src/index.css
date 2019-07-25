@@ -123,3 +123,13 @@ label{
   justify-content: center;
 }
 
+.searchField {
+    border-radius: 5px;
+    width: 25em;
+    margin-top: 10px;
+}
+
+.articleList-and-Search {
+  display: flex;
+  text-align: center;
+}

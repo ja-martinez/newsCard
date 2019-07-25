@@ -8,8 +8,7 @@ class Home extends React.Component{
         articles: [],
         search: "",
         categories: ["business", "entertainment", "health", "science", "sports", "technology"],
-        category: '',
-        btn: 0
+        category: ""
     }
 
     componentDidMount() {
@@ -18,6 +17,7 @@ class Home extends React.Component{
 
     getArticles = async (category) => {
         let response;
+
         if(category) {
             response = await fetch(`https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=b35a1440196748048050f2cf2c7c2ea1`)
         } else {
@@ -25,18 +25,15 @@ class Home extends React.Component{
         }
         
         const json = await response.json();
-        console.log(json.articles);
         this.setState({
             articles: json.articles
         })
-        console.log(this.state)
     }
 
-    searchArticles = str => {
-        this.setState({
-            ...this.state,
-            search: str
-        })
+    filterArticles = str => {
+        this.setState(prevState => {
+            return { search: str };
+        });
     }
 
     handleButtonSortByCategory = (e) => {
@@ -48,20 +45,27 @@ class Home extends React.Component{
     }
 
     render() {
+        let displayArticles = this.state.articles.filter(article => {
+            return (
+                article.url
+                    .toLowerCase()
+                    .includes(this.state.search.toLowerCase()) 
+            );
+        });
+
         return (
-            <>
+            <div>
                 <Category 
                     categories={this.state.categories}
                     handleButtonSortByCategory={this.handleButtonSortByCategory}
                 />
-                <ArticleList
-                    searchArticles={this.searchArticles}
-                    // articles={this.determineCategory()}
-                    // articles={searchedItem}
-                    articles={this.state.articles}
-                />
-                <SearchArticles />
-            </>
+                <div className="articleList-and-Search">
+                    <ArticleList
+                        articles={displayArticles} 
+                    />
+                    <SearchArticles filterArticles={this.filterArticles} />
+                </div>
+            </div>
         )
     }
 }
