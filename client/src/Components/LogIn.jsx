@@ -1,21 +1,19 @@
 import React from 'react';
 import { Redirect } from 'react-router';
 import { BrowserRouter as Router } from 'react-router-dom';
-import SavedArticles from './SavedArticles';
 
 class LogIn extends React.Component{
     state = {
         email: '',
         password: '',
         redirect: false,
-        responseJson: []
+        articleandNote: []
     }
 
     onChange = e => {
         this.setState({
             [e.target.name]: e.target.value
         })
-        console.log(this.state);
     }
 
     postData(type, userData) {
@@ -41,24 +39,20 @@ class LogIn extends React.Component{
     logIn = () => {
         if (this.state.email && this.state.password){
             this.postData('login', this.state).then((result) => {
-                // let responseJson = result;
-                this.setState({responseJson: result })
-                // console.log(responseJson);
-                if(this.state.responseJson){
+                this.setState({ articleandNote: result })
+                if (this.state.articleandNote){
                     this.setState({ redirect: true });
                 }
             })
-        }
+        }    
     }
     
-    
     render() {
-        console.log(this.state.responseJson);
         if (this.state.redirect) {
             return (
                 <Redirect to={{
                     pathname: '/savedArticles',
-                    responseJson: { responseJson: this.state.responseJson},
+                    articleandNote: { articleandNote: this.state.articleandNote},
                 }} />
             )
         }
@@ -87,9 +81,6 @@ class LogIn extends React.Component{
                         </p>
                         <input type="submit" value="login" onClick={this.logIn}/>
                     </div>
-                </div>
-                <div>
-                    {/* <SavedArticles savedArticles={this.state.responseJson} /> */}
                 </div>
         </Router>
         )

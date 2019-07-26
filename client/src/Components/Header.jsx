@@ -27,7 +27,7 @@ class Header extends React.Component {
                 </nav>
 
                 <Route path="/" exact component={Home} />
-                <Route path="/savedArticles" component={SavedArticles} />
+                <Route path="/savedArticles" component={SavedArticles}  />
                 <Route path="/login" component={LogIn} />
 
             </Router>

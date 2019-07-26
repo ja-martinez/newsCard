@@ -3,17 +3,14 @@ import React from 'react';
 class SavedArticles extends React.Component {
     state ={
         articles: [],
-        notes:[],
-        // hasSaved: false
+        notes:[]
     }
 
     componentDidMount () {
-        // if(!this.state.hasSaved) {
-            this.setState({
-                notes: this.props.location.responseJson.responseJson.notes,
-                articles: this.props.location.responseJson.responseJson.articles
-            })
-        // }
+        this.setState({
+            notes: this.props.location.articleandNote.articleandNote.notes,
+            articles: this.props.location.articleandNote.articleandNote.articles
+        })
     }
     
     render() {
@@ -22,7 +19,7 @@ class SavedArticles extends React.Component {
             return <p key={index}>{note.content}</p>
         })
 
-        const data = this.state.articles.map((article, index) => {
+        const articles = this.state.articles.map((article, index) => {
             return <div key={index}>
                 <img src={article.img_url} alt={"picture of " + article.title} style={{ width: '20em' }}></img>
                 <h4 style={{ color: 'black' }}>{article.title}</h4>
@@ -35,7 +32,7 @@ class SavedArticles extends React.Component {
 
         return(
             <div className="articleContainer">
-                {data}
+                {articles}
                 {content}
          </div>
         )

@@ -21,16 +21,16 @@ class Home extends React.Component{
         if(category) {
             response = await fetch(`https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=b35a1440196748048050f2cf2c7c2ea1`)
         } else {
-            response = await fetch('https://newsapi.org/v2/top-headlines?country=us&apiKey=b35a1440196748048050f2cf2c7c2ea1')
+            response = await fetch(`https://newsapi.org/v2/top-headlines?country=us&apiKey=b35a1440196748048050f2cf2c7c2ea1`)
         }
-        
+
         const json = await response.json();
         this.setState({
             articles: json.articles
         })
     }
-
-    filterArticles = str => {
+    
+    filterArticles = async (str) => {
         this.setState(prevState => {
             return { search: str };
         });
@@ -45,15 +45,16 @@ class Home extends React.Component{
     }
 
     saveArticles = async (newArticle) => {
-        const response = await fetch('http://localhost:8000/saveArticle', {
+        const response = await fetch('http://localhost:8000/saveArticle/', {
             method: "POST",
             body: JSON.stringify(newArticle),
             headers: {
                 'Content-Type': 'application/json'
             }
         });
-        console.log(response);
         const newArticleWithId = await response.json()
+        console.log(response.json());
+        console.log(newArticleWithId);
         this.setState(prevState => {
             return {
                 articles: [...prevState.articles, newArticleWithId]
@@ -67,10 +68,12 @@ class Home extends React.Component{
             return (
                 article.url
                     .toLowerCase()
-                    .includes(this.state.search.toLowerCase()) 
+                    .includes(this.state.search.toLowerCase()) ||
+                article.title
+                    .toLowerCase()
+                    .includes(this.state.search.toLowerCase())
             );
         });
-
         return (
             <div>
                 <Category 
