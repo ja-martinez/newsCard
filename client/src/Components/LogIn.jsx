@@ -1,12 +1,14 @@
 import React from 'react';
 import { Redirect } from 'react-router';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import SavedArticles from './SavedArticles';
 
 class LogIn extends React.Component{
     state = {
         email: '',
         password: '',
-        redirect: false
+        redirect: false,
+        responseJson: []
     }
 
     onChange = e => {
@@ -61,8 +63,10 @@ class LogIn extends React.Component{
     logIn = () => {
         if (this.state.email && this.state.password){
             this.postData('login', this.state).then((result) => {
-                let responseJson = result;
-                if(responseJson){
+                // let responseJson = result;
+                this.setState({responseJson: result })
+                // console.log(responseJson);
+                if(this.state.responseJson){
                     this.setState({ redirect: true });
                 }
             })
@@ -71,43 +75,44 @@ class LogIn extends React.Component{
     
     
     render() {
-        console.log(this.state.redirect);
+        console.log(this.state.responseJson);
         if (this.state.redirect) {
             return (
-                <Redirect to='/' />)
-            }
-
-        // if (sessionStorage.getItem('userData')) {
-        //     return (<Redirect to={'/home'} />)
-        // }
-
+                <Redirect to={{
+                    pathname: '/savedArticles',
+                    responseJson: { responseJson: this.state.responseJson},
+                }} />
+            )
+        }
         return (
             <Router>
-            <div className="wrapper">
-                <div className="loginForm">
-                    <h1>LOG IN</h1>
-                    <p className="loginInput">
-                        <label>Email Address</label>
-                        <input
-                            type="text"
-                            name="email"
-                            placeholder="Email"
-                            onChange={this.onChange}
-                            required />
-                    </p>
-                    <p className="loginInput">
-                        <label>Password</label>
-                        <input
-                            type="password"
-                            name="password"
-                            placeholder="Password"
-                            onChange={this.onChange}
-                            required />
-                    </p>
-                    <input type="submit" value="login" onClick={this.logIn}/>
-
+                <div className="wrapper">
+                    <div className="loginForm">
+                        <h1>LOG IN</h1>
+                        <p className="loginInput">
+                            <label>Email Address</label>
+                            <input
+                                type="text"
+                                name="email"
+                                placeholder="Email"
+                                onChange={this.onChange}
+                                required />
+                        </p>
+                        <p className="loginInput">
+                            <label>Password</label>
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder="Password"
+                                onChange={this.onChange}
+                                required />
+                        </p>
+                        <input type="submit" value="login" onClick={this.logIn}/>
+                    </div>
                 </div>
-            </div>
+                <div>
+                    {/* <SavedArticles savedArticles={this.state.responseJson} /> */}
+                </div>
         </Router>
         )
     }
