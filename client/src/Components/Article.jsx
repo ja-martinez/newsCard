@@ -7,20 +7,27 @@ const Article = ({ id, title, content, description, url, urlToImage, saveArticle
     }
 
     return (
-        <div className="articleContainer">
-            <div>
-                <img src={urlToImage} alt={"picture of " + title} style={{ width: '20em' }}></img>
-                <h4 style={{ color: 'black' }}>{title}</h4>
-                <p>{content}</p>
-                <p>{description}</p>
-                <a href={url} target="_blank" rel="noopener noreferrer">{url}</a>
 
-            </div>
-            <div className="addToCartButton">
-                <button onClick={clickHandler} value={id} className="cameraButton">Save Article</button>
-            </div>
+      <div className="card">
+        <div className="card-image">
+        <img
+            src={urlToImage}
+            alt=""/>
         </div>
-
+        <div className="card-content">
+          <div className="card-header links">
+            <div className="card-header-content">
+              <a className=" link" href={url}><h2>{title}</h2></a>
+            </div>
+            <div className="save">
+              <button onClick={clickHandler} value={id}><img class="save-icon" src="save-solid.svg" alt="hola"/></button>
+            </div>
+          </div>
+          <div className="card-body">
+            <p>{description}</p>
+          </div>
+        </div>
+      </div>
     )
 }
 

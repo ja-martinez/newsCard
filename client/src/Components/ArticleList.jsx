@@ -4,7 +4,7 @@ import Article from './Article';
 const ArticleList = ({ articles, saveArticles }) => {
     console.log(articles);
     return (
-        <div className="articleShelf">
+        <div className="cards-container">
             {articles.map(article => {
                 return (
                     <Article key={article.id}
