@@ -31,7 +31,6 @@ class LogIn extends React.Component{
       if (res.ok) {
         const json = res.json();
         const { articles, notes } = json;
-        
       } else {
 
       }
@@ -81,29 +80,35 @@ class LogIn extends React.Component{
         return (
             <Router>
                 <div className="wrapper">
-                    <div className="loginForm">
-                        <h1>LOG IN</h1>
-                        <p className="loginInput">
-                            <label>Email Address</label>
-                            <input
-                                type="text"
-                                name="email"
-                                placeholder="Email"
-                                onChange={this.onChange}
-                                required />
-                        </p>
-                        <p className="loginInput">
-                            <label>Password</label>
-                            <input
-                                type="password"
-                                name="password"
-                                placeholder="Password"
-                                onChange={this.onChange}
-                                required />
-                        </p>
-                        <input type="submit" value="login" onClick={this.logIn}/>
+                    <div className="loginCard">
+                        <div className="loginForm">
+                            <h1>LOG IN</h1>
+                            <p className="loginInput">
+                                <label>Email Address: </label>
+                                <input
+                                    style={{width: '10rem', padding: '5px', justifyContent:'left'}}
+                                    type="text"
+                                    name="email"
+                                    placeholder="Email"
+                                    onChange={this.onChange}
+                                    required />
+                            </p>
+                            <p className="loginInput">
+                                <label>Password: </label>
+                                <input
+                                    style={{ width: '10rem', padding: '5px', stifyContent: 'left' }}
+                                    type="password"
+                                    name="password"
+                                    placeholder="Password"
+                                    onChange={this.onChange}
+                                    required />
+                            </p>
+                            <input type="submit" value="login" onClick={this.logIn} className="logInButton"/>
+                        </div>
                     </div>
+
                 </div>
+
         </Router>
         )
     }

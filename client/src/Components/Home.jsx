@@ -27,12 +27,11 @@ class Home extends React.Component {
 
     if (category) {
       response = await fetch(
-        `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=b35a1440196748048050f2cf2c7c2ea1`
-      );
+        `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${process.env['REACT_APP_API_KEY']}`
+        );
     } else {
       response = await fetch(
-        "https://newsapi.org/v2/top-headlines?country=us&apiKey=b35a1440196748048050f2cf2c7c2ea1"
-      );
+        `https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env['REACT_APP_API_KEY']}`);
     }
 
     const json = await response.json();

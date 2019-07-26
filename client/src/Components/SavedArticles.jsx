@@ -14,27 +14,41 @@ class SavedArticles extends React.Component {
     }
     
     render() {
-        console.log(this.state)
         const content = this.state.notes.map((note,index) => {
             return <p key={index}>{note.content}</p>
         })
 
         const articles = this.state.articles.map((article, index) => {
             return <div key={index}>
-                <img src={article.img_url} alt={"picture of " + article.title} style={{ width: '20em' }}></img>
-                <h4 style={{ color: 'black' }}>{article.title}</h4>
-                <p>{article.content}</p>
-                <p>{article.description}</p>
-                <a href={article.link_url} target="_blank" rel="noopener noreferrer">{article.link_url}</a>
+                    <div className="card">
+                        <div className="card-image">
+                            <img
+                                src={article.img_url} 
+                                alt={"picture of " + article.title}
+                                />
+                        </div>
+                        <div className="card-content">
+                            <div className="card-header links">
+                                <div className="card-header-content">
+                                    <a className="link" href={article.link_url} target="_blank" rel="noopener noreferrer"><h2>{article.title}</h2></a>
+                                </div>
+                            </div>
+                            <div className="card-body">
+                                <p>{article.description}</p>
+                                <p className="savedNote">Notes: <span>{content}</span></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
         })
 
         return(
             <div className="articleContainer">
-                {articles}
-                {content}
-         </div>
+                <div className="savedArticles">
+                    {articles}
+                </div>
+            </div>
         )
     }
 
