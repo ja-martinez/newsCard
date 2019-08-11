@@ -1,15 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Home from "./Home";
-import SavedArticles from "./SavedArticles";
-import LogIn from "./LogIn";
+import Home from "../redux/containers/HomeContainer.js";
+import LogIn from "../redux/containers/LogInContainer.js";
+import SavedArticles from "../redux/containers/SavedArticlesContainer.js";
 
 class Header extends React.Component {
-  state = {
-    savedArticles: [],
-    notes: [],
-    isLoggedIn: false
-  };
 
   render() {
     return (
@@ -27,12 +22,12 @@ class Header extends React.Component {
             <Link to="/" className="main-nav-links">
               Home
             </Link>
-            <Link to="/savedArticles" className="main-nav-links">
+            {this.props.loggedIn ? <Link to="/savedArticles" className="main-nav-links">
               Saved Articles
-            </Link>
-            <Link to="/login" className="main-nav-links">
-              LogIn
-            </Link>
+            </Link> : ''}
+            {!this.props.loggedIn ? <Link to="/login" className="main-nav-links">
+              Login
+            </Link> : <button onClick={() => this.props.logout()}>Logout</button>}
           </div>
         </nav>
 

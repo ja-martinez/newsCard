@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "connect-session-knex": "^1.4.0",
+    "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
     "ejs": "^2.5.7",
     "express": "^4.16.2",

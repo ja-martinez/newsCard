@@ -49,7 +49,7 @@ module.exports = {
         if (err) {
           console.error(err);
         } else {
-          res.redirect ('/')
+          res.status(200).end();
         }
       })
     }
@@ -72,7 +72,10 @@ module.exports = {
           }, ['id', 'content'])
           .then(notes => {
             const note = notes[0]
-            res.json(note)
+            res.json({
+              ...note,
+              articleId
+            })
           })
       })
   },
@@ -106,10 +109,13 @@ module.exports = {
               link_url: req.body.link_url
             }, ['id'])
             .then(articleId => {
+              console.log(articleId)
+              articleId = articleId[0].id
+              console.log(articleId)
               knex('saved_listings')
                 .insert({
                   article_id: parseInt(articleId),
-                  user_id: userId
+                  user_id: parseInt(userId)
                 })
                 .then(() => {
                   knex('articles')

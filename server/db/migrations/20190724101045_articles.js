@@ -2,13 +2,13 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('articles', table => {
     table.increments();
-    table.string('title');
-    table.string('description');
-    table.string('img_url');
-    table.string('link_url')
+    table.text('title');
+    table.text('description');
+    table.text('img_url');
+    table.text('link_url')
   })
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable('savedPosts')
+  return knex.schema.dropTable('articles')
 };
