@@ -9,8 +9,8 @@ class Header extends React.Component {
   render() {
     return (
       <Router>
-        <nav class="main-nav">
-          <div class="logo links">
+        <nav className="main-nav">
+          <div className="logo links">
             <Link
               to="/"
               className="link"
@@ -18,7 +18,7 @@ class Header extends React.Component {
               <h3>newsCard</h3>
             </Link>
           </div>
-          <div class="links nav-links">
+          <div className="links nav-links">
             <Link to="/" className="main-nav-links">
               Home
             </Link>
@@ -27,7 +27,7 @@ class Header extends React.Component {
             </Link> : ''}
             {!this.props.loggedIn ? <Link to="/login" className="main-nav-links">
               Login
-            </Link> : <button onClick={() => this.props.logout()}>Logout</button>}
+            </Link> : <button className="main-nav-links" onClick={() => this.props.logout()}>Logout</button>}
           </div>
         </nav>
 

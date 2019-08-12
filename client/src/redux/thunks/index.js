@@ -68,7 +68,7 @@ export const fetchApiArticles = category => {
 
 export const getUserData = (email, password) => {
   return dispatch => {
-    return fetch('http://localhost:8000/login', 
+    return fetch(`${process.env.REACT_APP_API_URL}/login`, 
     {
       method: 'POST',
       body: JSON.stringify({
@@ -95,7 +95,7 @@ export const getUserData = (email, password) => {
 
 export const postNoteToDb = (articleId, content) => {
   return dispatch => {
-    return fetch(`http://localhost:8000/postNote/${articleId}`, {
+    return fetch(`${process.env.REACT_APP_API_URL}/postNote/${articleId}`, {
       method: 'POST',
       body: JSON.stringify({
         content
@@ -112,7 +112,7 @@ export const postNoteToDb = (articleId, content) => {
 
 export const saveArticleToDb = (title, description, image_url, link_url) => {
   return dispatch => {
-    return fetch('http://localhost:8000/saveArticle', {
+    return fetch(`${process.env.REACT_APP_API_URL}/saveArticle`, {
       method: 'POST',
       body: JSON.stringify({
         title,
@@ -136,7 +136,7 @@ export const saveArticleToDb = (title, description, image_url, link_url) => {
 
 export const logoutSession = () => {
   return dispatch => {
-    return fetch('http://localhost:8000/logout',
+    return fetch(`${process.env.REACT_APP_API_URL}/logout`,
     {
       credentials: "include"
     })

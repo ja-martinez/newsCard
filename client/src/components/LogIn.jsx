@@ -1,19 +1,62 @@
 import React from "react";
-import { Redirect } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
 
 class LogIn extends React.Component {
   state = {
-    email: "",
-    password: "",
-    articleandNote: []
+    login: {
+      email: "",
+      password: ""
+    },
+    register: {
+      name: '',
+      email: "",
+      password: ""
+    }
   };
 
-  onChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
+  onChangeLogin = e => {
+    const name = e.target.name;
+    const value = e.target.value
+    this.setState( prevState => ({
+      login: {
+        ...prevState.login,
+        [name]: value
+    }}
+    ));
   };
+
+  onChangeRegister = e => {
+    const name = e.target.name;
+    const value = e.target.value;
+    this.setState( prevState => ({
+      register: {
+        ...prevState.register,
+        [name]: value
+    }}));
+  };
+  
+  register = async e => {
+    e.preventDefault();
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/register`, {
+      method: 'POST',
+      body: JSON.stringify({
+        name: this.state.register.name,
+        email: this.state.register.email,
+        password: this.state.register.password
+      }),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+    console.log(res.ok)
+    this.setState({
+      register: {
+        name: '',
+        email: '',
+        password: ''
+      }
+    })
+  }
 
   render() {
     return (
@@ -24,7 +67,10 @@ class LogIn extends React.Component {
               className="loginForm"
               onSubmit={async e => {
                 e.preventDefault();
-                await this.props.login(this.state.email, this.state.password);
+                await this.props.login(this.state.login.email, this.state.login.password);
+                // if (this.props.loggedIn) {
+                //   this.props.history.push("/savedArticles/");
+                // }
                 this.props.history.push("/savedArticles/");
               }}
             >
@@ -35,7 +81,8 @@ class LogIn extends React.Component {
                 type="text"
                 name="email"
                 placeholder="Email"
-                onChange={this.onChange}
+                onChange={this.onChangeLogin}
+                value={this.state.login.email}
                 required
               />
               <label className="form-label">Password</label>
@@ -44,47 +91,48 @@ class LogIn extends React.Component {
                 type="password"
                 name="password"
                 placeholder="Password"
-                onChange={this.onChange}
+                onChange={this.onChangeLogin}
+                value={this.state.login.password}
                 required
               />
-              <input class="form-submit" type="submit" value="Login" />
+              <input className="form-submit" type="submit" value="Login" />
             </form>
           </div>
+
           <div className="card form-card">
             <form
               className="loginForm"
-              onSubmit={async e => {
-                e.preventDefault();
-                await this.props.login(this.state.email, this.state.password);
-                this.props.history.push("/login/");
-              }}
+              onSubmit={this.register}
             >
               <h1>Register</h1>
               <label className="form-label">First Name</label>
               <input
-                class="form-input"
+                className="form-input"
                 type="text"
-                name="email"
-                placeholder="Email"
-                onChange={this.onChange}
+                name="name"
+                placeholder="Name"
+                onChange={this.onChangeRegister}
+                value={this.state.register.name}
                 required
               />
               <label className="form-label">Email Address</label>
               <input
-                class="form-input"
+                className="form-input"
                 type="email"
                 name="email"
                 placeholder="Email"
-                onChange={this.onChange}
+                onChange={this.onChangeRegister}
                 required
+                value={this.state.register.email}
               />
               <label className="form-label">Password</label>
               <input
-                class="form-input"
+                className="form-input"
                 type="password"
                 name="password"
                 placeholder="Password"
-                onChange={this.onChange}
+                onChange={this.onChangeRegister}
+                value={this.state.register.password}
                 required
               />
               <input class="form-submit" type="submit" value="Register" />

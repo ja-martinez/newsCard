@@ -3,7 +3,7 @@ import Article from "../redux/containers/ArticleContainer.js";
 
 const ArticleList = ({ articles }) => {
   return (
-    <div className="cards-container container">
+    <div className="cards-container">
       {articles.map(article => {
         return <Article key={article.id} {...article} />;
       })}
